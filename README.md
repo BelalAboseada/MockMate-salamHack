@@ -30,6 +30,7 @@ MockMate is an AI-powered interview coach that helps users prepare for job inter
 
 ### **AI & GPT Integration:**  
 
+- python 
 - OpenAI API for generating interview questions and feedback analysis  
 - AI-driven speech-to-text processing for voice responses  
 - Machine learning models for scoring and personalized recommendations  
