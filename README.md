@@ -40,4 +40,4 @@ MockMate is an AI-powered interview coach that helps users prepare for job inter
 1. Clone the repository:  
 
    ```bash
-   git clone https://github.com/YourUsername/MockMate.git
+   git clone https://github.com/BelalAboseada/MockMate-salamHack.git
