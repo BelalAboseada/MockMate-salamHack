@@ -37,7 +37,37 @@ MockMate is an AI-powered interview coach that helps users prepare for job inter
 
 ## 📦 Installation  
 
-1. Clone the repository:  
+1️⃣ Clone the repository:  
+```bash
+   git clone https://github.coam/BelalAboseada/MockMate-salamHack.git
+```
+2️⃣ Navigate to the Project Directory:
+```bash
+cd MockMate-salamHack
+```
+3️⃣ Install Dependencies:
+For frontend:
 
-   ```bash
-   git clone https://github.com/BelalAboseada/MockMate-salamHack.git
+```bash
+cd frontend
+npm install
+```
+For backend:
+
+```bash
+cd backend
+npm install
+```
+4️⃣ Start the Application:
+Run the frontend:
+
+```bash
+npm run dev
+```
+
+Run the backend:
+```bash
+npm start
+```
+
+
