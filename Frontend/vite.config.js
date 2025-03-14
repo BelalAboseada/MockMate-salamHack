@@ -1,8 +1,7 @@
-import react from "@vitejs/plugin-react";
+import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { defineConfig } from "vite";
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
   resolve: {
@@ -11,7 +10,6 @@ export default defineConfig({
     },
   },
   define: {
-    // This line allows you to access environment variables in your code
-    "process.env": process.env,
+    "process.env": {}, // Avoid using `process.env` directly
   },
 });
