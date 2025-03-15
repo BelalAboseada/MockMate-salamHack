@@ -39,6 +39,7 @@ export const Header = () => {
 
       {/* Sign In Button */}
       <div className={styles.authContainer}>
+        
         <Link to="/signUp">
           <button className="text-lg font-bold py-2 px-4 transition-colors hover:text-blue-500">
             Sign Up
