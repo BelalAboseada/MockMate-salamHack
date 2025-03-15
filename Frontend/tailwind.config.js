@@ -59,20 +59,7 @@ export default {
           900: "var(--success-color-900)",
           950: "var(--success-color-950)",
         },
-        success: {
-          DEFAULT: "var(--success-color)",
-          50: "var(--success-color-50)",
-          100: "var(--success-color-100)",
-          200: "var(--success-color-200)",
-          300: "var(--success-color-300)",
-          400: "var(--success-color-400)",
-          500: "var(--success-color-500)",
-          600: "var(--success-color-600)",
-          700: "var(--success-color-700)",
-          800: "var(--success-color-800)",
-          900: "var(--success-color-900)",
-          950: "var(--success-color-950)",
-        },
+
         Neutral: {
           DEFAULT: "var(--Neutral-color)",
           50: "var(--Neutral-color-50)",

@@ -2,11 +2,11 @@ import styles from "./style.module.scss";
 import logoDesktop from "../../../assets/images/mockmate-logo.png";
 import logoMobile from "../../../assets/images/Logo.png";
 import { Link } from "react-router-dom";
-import clsx from "classnames"; // Optional for cleaner class management
+import clsx from "classnames";
 
 export const Header = () => {
   return (
-    <header className="sticky top-0 w-full py-2 px-[60px] flex items-center justify-between bg-white">
+    <header className="sticky top-0 w-full py-2 px-3 lg:px-[60px] flex items-center justify-between bg-white">
       {/* Logo */}
       <Link
         to="/"
@@ -39,9 +39,8 @@ export const Header = () => {
 
       {/* Sign In Button */}
       <div className={styles.authContainer}>
-        
         <Link to="/signUp">
-          <button className="text-lg font-bold py-2 px-4 transition-colors hover:text-blue-500">
+          <button className="text-lg font-bold py-2 px-2 lg:px-4 transition-colors hover:text-blue-500">
             Sign Up
           </button>
         </Link>

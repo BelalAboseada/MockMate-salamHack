@@ -1,9 +1,11 @@
+@import "../../../mixins.scss";
+
 .SignUp {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 90vh;
-
+  height: 92vh;
+  overflow-y: hidden;
 
   .container {
     display: flex;
@@ -17,7 +19,6 @@
     justify-content: center;
     align-items: center;
     position: relative;
- 
 
     &::before {
       content: "";
@@ -41,7 +42,7 @@
 
   .right {
     flex: 1;
-    padding: 40px;
+    padding: 60px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -66,6 +67,30 @@
       border: 1px solid #ccc;
       border-radius: 13px;
       font-size: 16px;
+      // &:active {
+
+      // }
+    }
+    .password {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      .input {
+        padding: 20px 0 !important;
+      }
+      .icon {
+        position: absolute;
+        top: 50%;
+        right: 20px;
+        transform: translateY(-50%);
+        cursor: pointer;
+        color: var(--Neutral-color);
+        transition: 0.3s ease-in-out;
+        &:hover {
+          color: var(--primary-color);
+        }
+      }
     }
 
     button {
