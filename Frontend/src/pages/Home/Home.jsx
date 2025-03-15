@@ -18,8 +18,10 @@ const Home = () => {
             </span>
           </h1>
           <p className={styles.description}>
-            Prepare with confidence using MockMate – your AI-driven interview
+            Prepare with confidence using MockMate – your AI-driven interview{" "}
+            <br />
             coach that generates personalized questions, analyzes your
+            <br />
             responses, and helps you improve your interview skills.
           </p>
           <div className={styles.buttons}>
@@ -36,23 +38,26 @@ const Home = () => {
         <div className={styles.right}>
           <div className={styles.imageWrapper}>
             <div className={styles.backdrop} />
+            <div className={styles.backdrop2} />
+            <div className={styles.backdrop3} />
+
             <img
               src={Banner1}
               alt="Person wearing a VR headset for AI interview practice"
               className={styles.Banner1}
-              loading="lazy"
+              // loading="lazy"
             />
             <img
               src={Banner2}
               alt="Candidate working on a CV for an AI-powered mock interview"
               className={styles.Banner2}
-              loading="lazy"
+              // loading="lazy"
             />
             <img
               src={Banner3}
               alt="Your AI Interview Coach helping with practice questions"
               className={styles.Banner3}
-              loading="lazy"
+              // loading="lazy"
             />
           </div>
         </div>
