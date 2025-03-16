@@ -1,27 +1,60 @@
-import { model, Schema } from "mongoose";
+import { model, Schema, Types } from "mongoose";
 
 export const interviewSchema = new Schema({
-    question:[{
-        type : String ,
-        required:true,
-        unique:true
-    }],
-    answers:[{
-        type : String ,
-        required:true,
-        unique:true
+    domain:{
+        type:String
+    },
+    experience_years:{
+        type:String
+    },
+    projects:[
+        {type:String}
+    ],
+    skills:[{type:String}],
+
+    interviewQA:[{
+        difficulty:{
+            type:String
+        },
+        number:{
+            type:Number
+        },
+        question:{
+            type:String
+        } ,
+        answer:{
+            type:String,
+            default:'not answered yet'
+        },
+        status:{
+            type:String,
+            default:'not signed'
+        },
+        resource:{
+            type:String
+        }
     }],
     score:{
         type:Number,
     },
-    field :{
-        type : String
+    userId:{
+        type :Types.ObjectId,
+        required : true ,
+        ref:"Users"
     },
-    feedBack:[{
-    }]
+    isCompleted:{
+        type:Boolean,
+        default:false
+    },
+    report:{
+        type:String
+    },
+    total_score:{
+        type:String
+    }
 })
 
 
 
 
-export const interviewModel = model('Questions' , interviewSchema)
+export const interviewModel = model('Interview' , interviewSchema)
