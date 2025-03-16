@@ -1,0 +1,143 @@
+$gray-light: #f3f4f6;
+$gray-dark: #4b5563;
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  min-height: 100vh;
+  padding: 40px;
+}
+
+.formContainer {
+  flex: 1;
+  max-width: 500px;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: $gray-dark;
+  margin-bottom: 16px;
+}
+
+.label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: $gray-dark;
+  display: block;
+  margin-top: 12px;
+
+  span {
+    color: var(--err-color);
+  }
+}
+
+.input,
+.textarea,
+select {
+  width: 100%;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  padding: 10px;
+  margin-top: 4px;
+  outline: none;
+  transition: 0.3s;
+
+  &:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 4px rgba(var(--primary-color), 0.5);
+  }
+}
+select {
+  appearance: none;
+  
+}
+
+.textarea {
+  height: 80px;
+  resize: none;
+  border: dashed 2px #d1d5db;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.tagButton {
+  background-color: #f9fafb;
+  color: $gray-dark;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: 0.3s;
+  border: 1px solid #e5e7eb;
+
+  &:hover {
+    background-color: #e5e7eb;
+  }
+}
+.instructions {
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+  direction: rtl;
+}
+.instructionsBox {
+  flex: 1;
+  max-width: 600px;
+  padding: 20px;
+  border: 2px dashed #d1d5db;
+  border-radius: 6px;
+  background: white;
+  font-size: 0.875rem;
+  color: $gray-dark;
+  text-align: right;
+  direction: rtl;
+
+  h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: $gray-dark;
+    margin-bottom: 16px;
+  }
+
+  ul {
+    list-style-type: disc;
+    padding-right: 20px;
+  }
+
+  li {
+    margin-bottom: 18px;
+    font-size: 16px;
+    font-weight: 500;
+  }
+}
+
+.warning {
+  color: var(--err-color);
+  font-weight: 500;
+}
+
+.button {
+  width: 160px;
+  background-color: var(--primary-color);
+  color: white;
+  padding: 10px;
+  margin-top: 16px;
+  border-radius: 6px;
+  text-align: center;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.3s;
+
+  &:hover {
+    background-color: var(--primary-color-600);
+  }
+}

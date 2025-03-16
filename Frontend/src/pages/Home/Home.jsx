@@ -25,7 +25,7 @@ const Home = () => {
             responses, and helps you improve your interview skills.
           </p>
           <div className={styles.buttons}>
-            <Link to="/interview" className={styles.primaryBtn}>
+            <Link to="/interviewSetup" className={styles.primaryBtn}>
               Get Started
             </Link>
             <Link to="/interview" className={styles.secondaryBtn}>
