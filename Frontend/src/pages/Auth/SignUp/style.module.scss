@@ -1,19 +1,24 @@
 @import "../../../mixins.scss";
 
-.SignUp {
+.signUp {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   height: 92vh;
-  overflow-y: hidden;
-
-  .container {
-    display: flex;
+  @include md {
+    overflow-y: hidden;
     justify-content: space-between;
-    align-items: center;
   }
 
-  .left {
+  &__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @include md {
+      justify-content: space-between;
+    }
+  }
+
+  &__left {
     flex: 1;
     display: flex;
     justify-content: center;
@@ -23,91 +28,112 @@
     &::before {
       content: "";
       position: absolute;
-      width: 500px;
-      height: 500px;
       background: rgba(29, 130, 133, 0.38);
       border-radius: 50%;
-      left: -100px;
-      bottom: -210px;
+      width: 400px;
+      height: 400px;
+      left: -70px;
+      bottom: -140px;
       transform: rotate(-30deg);
       z-index: -1;
-    }
 
-    img {
+      @include lg {
+        width: 500px;
+        height: 500px;
+        left: -100px;
+        bottom: -210px;
+      }
+    }
+  }
+  &__image {
+    display: none;
+    @include md {
+      display: block;
       width: 90%;
       height: auto;
       object-fit: contain;
     }
   }
 
-  .right {
+  &__right {
     flex: 1;
-    padding: 60px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    text-align: left;
+    align-items: center;
+    text-align: center;
+
+    @include md {
+      padding:  100px;
+      text-align: left;
+         align-items: normal;
+    }
   }
 
-  .title {
+  &__title {
     font-size: 24px;
     font-weight: bold;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     color: #333;
   }
 
-  .form {
+  &__form {
     display: flex;
     flex-direction: column;
     gap: 15px;
 
-    .input {
+    &__input {
       width: 100%;
       padding: 20px 0 !important;
       border: 1px solid #ccc;
       border-radius: 13px;
       font-size: 16px;
-      // &:active {
 
-      // }
     }
-    .password {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      .input {
-        padding: 20px 0 !important;
-      }
-      .icon {
-        position: absolute;
-        top: 50%;
-        right: 20px;
-        transform: translateY(-50%);
-        cursor: pointer;
-        color: var(--Neutral-color);
-        transition: 0.3s ease-in-out;
-        &:hover {
-          color: var(--primary-color);
-        }
-      }
-    }
+  }
+  &__input {
+    width: 100%;
+    padding: 20px 0 !important;
+    border: 1px solid #ccc;
+    border-radius: 13px;
+    font-size: 16px;
+  }
+  &__password {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 
-    button {
-      width: 100%;
-      padding: 12px;
-      background: #00796b;
-      color: white;
-      font-size: 16px;
-      font-weight: bold;
-      border: none;
-      border-radius: 13px;
+    .togglePass {
+      position: absolute;
+      top: 40%;
+      right: 20px;
+      transform: translateY(-50%);
       cursor: pointer;
+      color: var(--Neutral-color);
       transition: 0.3s ease-in-out;
-
       &:hover {
-        background: #004d40;
+        color: var(--primary-color);
       }
+    }
+  }
+  &__btn {
+    width: 100%;
+    padding: 12px;
+    background: #00796b;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 20px;
+    margin-top: 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+    cursor: pointer;
+
+    &:hover {
+      background: #004d40;
     }
   }
 }
