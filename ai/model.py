@@ -5,7 +5,7 @@ from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
-OPENROUTER_API_KEY = "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"
+OPENROUTER_API_KEY = "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"
 API_URL = "https://openrouter.ai/api/v1/chat/completions"
 
 
@@ -46,7 +46,7 @@ def analyze_interview_answers(interview_data):
     """
     
     headers = {"Authorization": f"Bearer {OPENROUTER_API_KEY}", "Content-Type": "application/json"}
-    payload = {"model": "google/gemini-flash-8b-1.5-exp", "messages": [{"role": "user", "content": prompt}], "max_tokens": 2000}
+    payload = {"model": "google/gemini-flash-8b-1.5-exp", "messages": [{"degree": "user", "content": prompt}], "max_tokens": 2000}
     
     try:
         response = requests.post(API_URL, headers=headers, json=payload)
@@ -73,25 +73,27 @@ def api_analyze_answers():
     
     
     
-def generate_interview_questions(domain, experience_years=0, skills="", projects=""):
+def generate_interview_questions(position, experience_years="0 years", note="", degree=""):
     prompt = f"""
-    تصرف كمقابل في مقابلة تقنية في مجال {domain}.
-    المتقدم لديه {experience_years} سنوات من الخبرة، ومهارات في {skills}، وعمل على مشاريع مثل {projects}.
-    قدم 10 أسئلة تقنية فقط باللغة العربية متدرجة من السهل إلى الصعب بصيغة JSON:
-    """
-    
-    prompt += """
-    {
+"قم بدور المحاور في مقابلة تقنية لوظيفة {position}، مع الأخذ في الاعتبار {note}. المتقدم لديه {experience_years} سنوات من الخبرة ويشغل منصب {degree} (سواء كان Junior أو Mid-Level أو Senior). قدم 10 أسئلة تقنية فقط باللغة العربية، متدرجة في الصعوبة من السهل إلى الصعب، بصيغة JSON."
+    الصيغة المطلوبة:
+    {{
         "questions": [
-            {"number": 1, "question": "السؤال", "difficulty": "سهل"},
-            {"number": 10, "question": "السؤال", "difficulty": "صعب"}
+            {{"number": 1, "question": "السؤال", "difficulty": "سهل"}},
+            {{"number": 2, "question": "السؤال", "difficulty": "سهل"}},
+            ...
+            {{"number": 10, "question": "السؤال", "difficulty": "صعب"}}
         ]
-    }
+    }}
     """
-    
+
     headers = {"Authorization": f"Bearer {OPENROUTER_API_KEY}", "Content-Type": "application/json"}
-    payload = {"model": "google/gemini-flash-8b-1.5-exp", "messages": [{"role": "user", "content": prompt}], "max_tokens": 1500}
-    
+    payload = {
+        "model": "google/gemini-flash-8b-1.5-exp",
+        "messages": [{"degree": "user", "content": prompt}],
+        "max_tokens": 1500
+    }
+
     try:
         response = requests.post(API_URL, headers=headers, json=payload)
         response.raise_for_status()
@@ -103,15 +105,14 @@ def generate_interview_questions(domain, experience_years=0, skills="", projects
     except (requests.RequestException, json.JSONDecodeError) as e:
         return {"error": str(e)}
 
-
 @app.route('/generate-questions', methods=['POST'])
 def api_generate_questions():
     data = request.json
-    required_fields = ["domain", "experience_years", "skills", "projects"]
+    required_fields = ["position", "experience_years", "note", "degree"]
     for field in required_fields:
         if field not in data:
             return jsonify({"error": f"Missing required field: {field}"}), 400
-    return jsonify(generate_interview_questions(data["domain"], data["experience_years"], data["skills"], data["projects"]))
+    return jsonify(generate_interview_questions(data["position"], data["experience_years"], data["note"], data["degree"]))
 
 
 if __name__ == '__main__':

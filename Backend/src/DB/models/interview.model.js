@@ -1,16 +1,15 @@
 import { model, Schema, Types } from "mongoose";
 
 export const interviewSchema = new Schema({
-    domain:{
+    position:{
         type:String
     },
     experience_years:{
         type:String
     },
-    projects:[
-        {type:String}
-    ],
-    skills:[{type:String}],
+    note:
+        {type:String},
+    degree:{type:String},
 
     interviewQA:[{
         difficulty:{

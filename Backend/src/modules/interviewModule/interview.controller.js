@@ -3,17 +3,17 @@ import axios from "axios";
 import { interviewModel } from "../../DB/models/interview.model.js";
 
 export const generateQuestions = async (req, res, next) => {
-    const { domain, experience_years, skills, projects } = req.body;
+    const { position, experience_years, note, degree } = req.body;
 
     const flaskServerUrl = "http://127.0.0.1:5001/generate-questions"; 
-    const requestData = { domain, experience_years, skills, projects };
+    const requestData = { position, experience_years, note, degree };
 
     try {
         const response = await axios.post(flaskServerUrl, requestData);
         const {questions} = response.data;
         
         const interview = await interviewModel.create({
-            experience_years , skills , domain , projects , interviewQA : questions , userId : req.user._id
+            experience_years  , position , degree , interviewQA : questions , userId : req.user._id
         })
         res.status(StatusCodes.ACCEPTED).json({interview})
     } catch (error) {
