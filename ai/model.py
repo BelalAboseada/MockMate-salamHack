@@ -97,7 +97,8 @@ def generate_interview_questions(position, experience_years="0 years", note="", 
     try:
         response = requests.post(API_URL, headers=headers, json=payload)
         response.raise_for_status()
-        result = response.json()
+        result = response.json();
+        
         if 'choices' in result:
             cleaned_content = clean_json_response(result['choices'][0]['message']['content'])
             return json.loads(cleaned_content)
