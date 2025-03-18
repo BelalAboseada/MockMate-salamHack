@@ -11,6 +11,11 @@ export const publicRoutes = [
     path: "/signUp",
     component: <SignUp />,
   },
+ 
+];
+
+// Define protected routes
+export const protectedRoutes = [
   {
     path: "/interviewSetup",
     component: <InterviewSetup />,
@@ -19,9 +24,4 @@ export const publicRoutes = [
     path: "/interview",
     component: <Interview />,
   },
-];
-
-// Define protected routes
-export const protectedRoutes = [
-  // { path: "/", component: <Home /> },
 ];

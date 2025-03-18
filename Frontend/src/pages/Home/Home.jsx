@@ -3,6 +3,7 @@ import Banner1 from "../../assets/images/Banner1.png";
 import Banner2 from "../../assets/images/Banner2.png";
 import Banner3 from "../../assets/images/Banner3.png";
 import { Link } from "react-router-dom";
+import { IoIosArrowForward } from "react-icons/io";
 
 const Home = () => {
   return (
@@ -26,10 +27,10 @@ const Home = () => {
           </p>
           <div className={styles.buttons}>
             <Link to="/interviewSetup" className={styles.primaryBtn}>
-              Get Started
-            </Link>
-            <Link to="/interview" className={styles.secondaryBtn}>
-              Learn More
+              <span> Get Started</span>{" "}
+              <span className="">
+                <IoIosArrowForward />
+              </span>
             </Link>
           </div>
         </div>

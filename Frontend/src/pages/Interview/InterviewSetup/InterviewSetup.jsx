@@ -16,7 +16,6 @@ const InterviewSetup = () => {
   return (
     <div className={styles.container}>
       <div className={styles.formContainer}>
-        <h2 className={styles.title}>Interview Setup</h2>
 
         {/* Position Selection */}
         <label className={styles.label}>
@@ -89,7 +88,7 @@ const InterviewSetup = () => {
 
       <div className={styles.instructions}>
         {/* Instructions Box */}
-        <h3>التعليمات</h3>
+        <h3 className={styles.instructionsTitle}>التعليمات</h3>
         <div className={styles.instructionsBox}>
           <ul>
             <li>
@@ -104,7 +103,7 @@ const InterviewSetup = () => {
               الخاص بك.
             </li>
             <li className={styles.warning}>
-              ⚠️ يرجى ملاحظة: لا تقم بتحديث الصفحة أو إغلاقها أو الخروج منها
+               يرجى ملاحظة: لا تقم بتحديث الصفحة أو إغلاقها أو الخروج منها
               بمجرد بدء المقابلة، حيث لن يُسمح لك بالوصول إلى رابط المقابلة بعد
               الآن.
             </li>

@@ -3,22 +3,47 @@ import signUpImage from "../../../assets/images/singUp.png";
 import { useState, useCallback } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { registerUser } from "../../../redux/authSlice";
+import Loader from "../../../components/Loader/Loader";
 
 const SignUp = () => {
   const [showPass, setShowPass] = useState(false);
+  const [formData, setFormData] = useState({
+    userName: "",
+    email: "",
+    password: "",
+  });
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { loading } = useSelector((state) => state.auth);
 
   const handleShowPass = useCallback(() => {
     setShowPass((prev) => !prev);
   }, []);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    navigate("/");
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!document.getElementById("agree")?.checked) return;
+
+    dispatch(registerUser(formData)).then((res) => {
+      if (res.meta.requestStatus === "fulfilled") {
+        toast.success("Account created successfully!");
+        navigate("/");
+        window.location.reload();
+      }
+    });
+  };
   return (
     <div className={styles.signUp}>
+      {/* {loading ? (
+        <Loader />
+      ) : ( */}
       <div className={styles.signUp__container}>
         {/* Left Section */}
         <div className={styles.signUp__left}>
@@ -41,8 +66,9 @@ const SignUp = () => {
               type="text"
               placeholder="Full name"
               className={styles.form__input}
-              name="name"
-              id="name"
+              name="userName"
+              value={formData.userName}
+              onChange={handleChange}
               autoComplete="name"
               required
               pattern="^[A-Za-z\s]+$"
@@ -54,7 +80,8 @@ const SignUp = () => {
               placeholder="Email Address"
               className={styles.form__input}
               name="email"
-              id="email"
+              value={formData.email}
+              onChange={handleChange}
               autoComplete="email"
               required
               pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
@@ -67,11 +94,12 @@ const SignUp = () => {
                 placeholder="Password"
                 className={styles.input}
                 name="password"
-                id="password"
+                value={formData.password}
+                onChange={handleChange}
                 autoComplete="new-password"
+                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$"
+                title="Password must be 8-20 characters long and include at least one uppercase letter, one lowercase letter, one number, and one special character."
                 required
-                // pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
-                title="Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character."
                 minLength="8"
                 maxLength="20"
               />
@@ -86,40 +114,38 @@ const SignUp = () => {
             </div>
 
             {/* Terms & Conditions */}
-            <div className={`flex items-center gap-2 `}>
+            <label
+              htmlFor="agree"
+              className="flex items-center gap-2 cursor-pointer"
+            >
               <input
                 className={`appearance-none   !w-4 !h-4 p-0  rounded border-2 border-gray-300  checked:bg-primary checked:border-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary `}
                 type="checkbox"
                 id="agree"
                 name="agree"
-                value="agree"
                 required
-                aria-required="true"
               />
-              <label
-                htmlFor="agree"
-                className={`text-sm font-medium  text-balance  mb-4 select-none`}
-              >
+              <span htmlFor="agree" className="text-sm font-medium mb-4">
                 Agree with
-                <span className="text-primary underline underline-offset-1 px-1">
+                <span className="text-primary underline px-1">
                   terms & condition
                 </span>
-              </label>
-            </div>
+              </span>
+            </label>
 
             {/* Submit Button */}
             <button
               type="submit"
-              onClick={handleSubmit}
               className={styles.signUp__btn}
-              disabled={!document.getElementById("agree")?.checked}
-              aria-disabled={!document.getElementById("agree")?.checked}
+              disabled={loading}
+              aria-disabled={loading}
             >
-              Create Account
+              {loading ? "Creating..." : "Create Account"}
             </button>
           </form>
         </div>
       </div>
+      {/* )} */}
     </div>
   );
 };

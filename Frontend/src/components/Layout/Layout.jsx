@@ -1,10 +1,21 @@
 import { useLocation } from "react-router-dom";
 import AppRoutes from "../../Routes/AppRoutes";
 import { Header } from "../common/header/Header.jsx";
+import { ToastContainer } from "react-toastify";
 
 const Layout = () => {
   const location = useLocation();
 
+  const options = {
+    position: "bottom-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+  };
+  
   return (
     <div className="flex flex-col h-screen">
       <Header className="w-full" />
@@ -17,9 +28,9 @@ const Layout = () => {
           <AppRoutes />
         </main>
       </div>
+      <ToastContainer options={options} stacked />
     </div>
   );
 };
 
-export default Layout; 
- 
+export default Layout;
