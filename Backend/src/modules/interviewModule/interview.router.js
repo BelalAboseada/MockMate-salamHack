@@ -9,11 +9,7 @@ router.post('/get-questions' ,
     asyncErrorHandler(interviewServices.generateQuestions)
 )
 
-router.post('/submit-answers/:interviewId' , 
-    auth(),
-    asyncErrorHandler(interviewServices.submitAnswers)
-)
-router.post('/get-interview-result/:interviewId' , 
+router.post('/submit-interview/:interviewId' , 
     auth(),
     asyncErrorHandler(interviewServices.getInterviewResult)
 )

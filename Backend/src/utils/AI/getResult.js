@@ -21,7 +21,6 @@ export const evaluateInterviewAnswers = async (interview_data, next) => {
         "total_score": "إجمالي التقييم من 100"
     }
     `;
-console.log(1);
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_AI_KEY);
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 

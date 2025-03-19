@@ -23,15 +23,14 @@ export const interviewSchema = new Schema({
         } ,
         answer:{
             type:String,
-            default:'not answered yet'
         },
         status:{
             type:String,
             default:'not signed'
         },
-        resource:{
+        resource:[{
             type:String
-        }
+        }]
     }],
     score:{
         type:Number,
