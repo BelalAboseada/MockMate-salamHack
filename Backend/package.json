@@ -1,17 +1,22 @@
 {
   "name": "e-commerce",
   "version": "1.0.0",
-  "description": "",
+  "description": "Ai interviewer coach Backend",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node --watch --env-file=.env index.js"
+    "dev": "node --watch --env-file=.env index.js",
+    "start": "node index.js"
+  },
+  "engines": {
+    "node": "v20.15.0"
   },
   "type": "module",
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@google/generative-ai": "^0.24.0",
     "axios": "^1.8.3",
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",

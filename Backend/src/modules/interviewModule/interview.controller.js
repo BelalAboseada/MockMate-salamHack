@@ -1,24 +1,17 @@
 import { StatusCodes } from "http-status-codes";
 import axios from "axios";
 import { interviewModel } from "../../DB/models/interview.model.js";
+import { generateQuestionsFromAi } from "../../utils/AI/generateQuestions.js";
 
 export const generateQuestions = async (req, res, next) => {
     const { position, experience_years, note, degree } = req.body;
 
-    const flaskServerUrl = "http://127.0.0.1:5001/generate-questions"; 
-    const requestData = { position, experience_years, note, degree };
-
-    try {
-        const response = await axios.post(flaskServerUrl, requestData);
-        const {questions} = response.data;
-        
+    const {questions} = await generateQuestionsFromAi(position , note , experience_years , degree ,next)
+    console.log(questions);
         const interview = await interviewModel.create({
-            experience_years  , position , degree , interviewQA : questions , userId : req.user._id
+            experience_years  , position , degree , interviewQA :questions , userId : req.user._id
         })
-        res.status(StatusCodes.ACCEPTED).json({interview})
-    } catch (error) {
-        next(new Error("Failed to fetch questions from Flask server", { cause: StatusCodes.INTERNAL_SERVER_ERROR }));
-    }
+        return res.status(StatusCodes.ACCEPTED).json({interview})
 };
 
 export const submitAnswers = async(req , res , next)=>{
