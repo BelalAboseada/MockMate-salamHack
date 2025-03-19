@@ -32,9 +32,6 @@ export const interviewSchema = new Schema({
             type:String
         }]
     }],
-    score:{
-        type:Number,
-    },
     userId:{
         type :Types.ObjectId,
         required : true ,
@@ -48,8 +45,42 @@ export const interviewSchema = new Schema({
         type:String
     },
     total_score:{
-        type:String
-    }
+        type:Number
+    }, 
+    feedbackTips:[{
+        good:[
+            {
+                tip:{
+                    type:String,
+                },
+                status:{
+                    type:String,
+                    default:'good'
+                }
+            }
+        ],
+        medium:[
+            {
+                tip:{
+                    type:String,
+                },
+                status:{
+                    type:String,
+                }
+            }
+        ],
+        bad:[
+            {
+                tip:{
+                    type:String,
+                },
+                status:{
+                    type:String,
+                    default:'bad'
+                }
+            }
+        ]
+    }]
 })
 
 

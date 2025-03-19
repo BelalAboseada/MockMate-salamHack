@@ -8,7 +8,6 @@ export const generateQuestions = async (req, res, next) => {
     const { position, experience_years, note, degree } = req.body;
 
     const {questions} = await generateQuestionsFromAi(position , note , experience_years , degree ,next)
-    console.log(questions);
         const interview = await interviewModel.create({
             experience_years  , position , degree , interviewQA :questions , userId : req.user._id
         })
@@ -56,7 +55,7 @@ export const getInterviewResult = async (req, res, next) => {
         })
         const response = await evaluateInterviewAnswers(interview_data , next);
         
-        const {scores , total_score ,report  } = response;
+        const {scores , total_score ,report , feedbackTips  } = response;
 
         interviewQA.forEach(e => {
             const scoreData = scores.find(s => s.number === e.number);
@@ -68,6 +67,8 @@ export const getInterviewResult = async (req, res, next) => {
         interview.total_score = total_score;
         interview.report = report;
         interview.isCompleted = true;
+        interview.feedbackTips = feedbackTips
         await interview.save()
+        
         return res.status(StatusCodes.OK).json({ success: true  , interview});
         };
