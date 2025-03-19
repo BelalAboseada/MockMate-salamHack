@@ -63,7 +63,7 @@ ${interview_data.map(item => `- السؤال: ${item.question}\n  الإجابة
             }
         ]
     }
-} و مع مرعاه ان داآما يجب ارجاع feedbackTips ,يجب علي الاقل ان تحتوي علي خمس عناصر
+}  و مع مرعاه ان داآما يجب ارجاع feedbackTips ,يجب علي الاقل ان تحتوي علي 3 عناصر تكرار tips ويكون مجموع ال في feedbackTips كلها لا يقل
 `
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_AI_KEY);
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
