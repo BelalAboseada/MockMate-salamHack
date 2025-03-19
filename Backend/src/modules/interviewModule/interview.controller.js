@@ -15,28 +15,7 @@ export const generateQuestions = async (req, res, next) => {
         return res.status(StatusCodes.ACCEPTED).json({interview})
 };
 
-export const submitAnswers = async(req , res , next)=>{
-    const {answers} = req.body;
-    const {interviewId} = req.params
-    const interview = await interviewModel.findById(interviewId);
-    if(!interview) 
-        return next(new Error('interview not found' , {cause : StatusCodes.NOT_FOUND}));
-    if(req.user._id.toString()!==interview.userId.toString())
-        return next(new Error('you are not allowed to answer this questions' , {cause:StatusCodes.BAD_REQUEST}));
-    const QA = interview.interviewQA ;
-    for (const answer of answers) {
-        QA.map(e =>  {
-            if(e._id.toString() === answer.questionId.toString())
-                {
-                e.answer = answer.answer
-                }
-            })
-    }
-    
-    interview.interviewQA = QA;
-    await interview.save()
-    return res.status(StatusCodes.ACCEPTED).json({success:true , interview})
-}
+
 
 
 export const getAllInterviews = async(req , res , next)=>{
@@ -78,8 +57,7 @@ export const getInterviewResult = async (req, res, next) => {
         const response = await evaluateInterviewAnswers(interview_data , next);
         
         const {scores , total_score ,report  } = response;
-        console.log(response);
-        
+
         interviewQA.forEach(e => {
             const scoreData = scores.find(s => s.number === e.number);
             if (scoreData) {
@@ -91,5 +69,5 @@ export const getInterviewResult = async (req, res, next) => {
         interview.report = report;
         interview.isCompleted = true;
         await interview.save()
-        res.status(StatusCodes.OK).json({ success: true  , interview});
+        return res.status(StatusCodes.OK).json({ success: true  , interview});
         };
