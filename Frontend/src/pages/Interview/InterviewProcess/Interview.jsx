@@ -3,7 +3,7 @@ import styles from "./style.module.scss";
 import { useSelector, useDispatch } from "react-redux";
 // import { submitAnswer, finishQuiz } from "../redux/quizSlice";
 import { AiOutlineAudio } from "react-icons/ai";
-import WarningPopup from "../../components/UI/popup/WarningPopup";
+import WarningPopup from "../../../components/UI/popup/WarningPopup";
 
 const questions = [
   "وضح الفرق بين HTTP GET و HTTP POST؟",

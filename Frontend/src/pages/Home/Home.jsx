@@ -26,7 +26,7 @@ const Home = () => {
             responses, and helps you improve your interview skills.
           </p>
           <div className={styles.buttons}>
-            <Link to="/interviewSetup" className={styles.primaryBtn}>
+            <Link to="/interview/setup" className={styles.primaryBtn}>
               <span> Get Started</span>{" "}
               <span className="">
                 <IoIosArrowForward />

@@ -1,6 +1,7 @@
 import React from "react";
 import { AiOutlineExclamationCircle } from "react-icons/ai";
 import styles from "./WarningPopup.module.scss";
+import { Link } from "react-router-dom";
 
 const WarningPopup = ({ isOpen, onClose, onConfirm }) => {
   if (!isOpen) return null;
@@ -22,7 +23,7 @@ const WarningPopup = ({ isOpen, onClose, onConfirm }) => {
             Cancel
           </button>
           <button className={styles["end-button"]} onClick={onConfirm}>
-            End
+            <Link className="text-white" to="/interview/Feedback">End</Link>
           </button>
         </div>
       </div>

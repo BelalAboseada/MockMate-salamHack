@@ -41,6 +41,7 @@
   }
 
   .end-button {
-    @apply bg-red-600 text-white px-6 py-2 rounded-md cursor-pointer;
+    @apply text-white px-6 py-2 rounded-md cursor-pointer;
+    background-color: rgba(219, 32, 32, 1);
   }
 }

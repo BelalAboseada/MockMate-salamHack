@@ -1,0 +1,37 @@
+.feedbackItem {
+  position: relative;
+  padding-left: 20px;
+  font-size: 1rem;
+  color: #333;
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 8px;
+    height: 8px;
+    background-color: teal;
+    border-radius: 50%;
+  }
+}
+
+
+// .timeline {
+//   position: relative;
+//   list-style: none;
+//   padding-left: 20px;
+
+//   &::before {
+//     content: "";
+//     position: absolute;
+//     left: 5px;
+//     top: 0;
+//     width: 2px;
+//     height: 100%;
+//     background-color: var(--primary-color);
+
+//   }
+
+// }

@@ -5,7 +5,7 @@ export const registerValidationSchema = Joi.object({
     userName:generalValidation.firstName.required(),
     email:generalValidation.email.required(),
     role:generalValidation.role,
-    phone:generalValidation.phone.required(),
+    // phone:generalValidation.phone.required(),
     password:generalValidation.password.required(),
 })
 

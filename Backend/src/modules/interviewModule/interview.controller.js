@@ -1,24 +1,18 @@
 import { StatusCodes } from "http-status-codes";
 import axios from "axios";
 import { interviewModel } from "../../DB/models/interview.model.js";
+import { generateQuestionsFromAi } from "../../utils/AI/generateQuestions.js";
+import { evaluateInterviewAnswers } from "../../utils/AI/getResult.js";
 
 export const generateQuestions = async (req, res, next) => {
     const { position, experience_years, note, degree } = req.body;
 
-    const flaskServerUrl = "http://127.0.0.1:5001/generate-questions"; 
-    const requestData = { position, experience_years, note, degree };
-
-    try {
-        const response = await axios.post(flaskServerUrl, requestData);
-        const {questions} = response.data;
-        
+    const {questions} = await generateQuestionsFromAi(position , note , experience_years , degree ,next)
+    console.log(questions);
         const interview = await interviewModel.create({
-            experience_years  , position , degree , interviewQA : questions , userId : req.user._id
+            experience_years  , position , degree , interviewQA :questions , userId : req.user._id
         })
-        res.status(StatusCodes.ACCEPTED).json({interview})
-    } catch (error) {
-        next(new Error("Failed to fetch questions from Flask server", { cause: StatusCodes.INTERNAL_SERVER_ERROR }));
-    }
+        return res.status(StatusCodes.ACCEPTED).json({interview})
 };
 
 export const submitAnswers = async(req , res , next)=>{
@@ -72,18 +66,15 @@ export const getInterviewResult = async (req, res, next) => {
         const interview_data = interviewQA.map(e=> e={
             question : e.question ,answer : e.answer ,number :  e.number
         })
-        try{
-        const flaskServerUrl = "http://127.0.0.1:5001/analyze-answers";
-        const requestData =  interview_data ; 
-        const response = await axios.post(flaskServerUrl, requestData);
+        const response = await evaluateInterviewAnswers(interview_data , next);
         
-        const {scores , total_score ,report } = response.data;
+        const {scores , total_score ,report } = response;
         console.log({scores , total_score , report});
         
         interviewQA.forEach(e => {
             const scoreData = scores.find(s => s.number === e.number);
             if (scoreData) {
-                Object.assign(e, scoreData); // تحديث القيم بدل إنشاء كائن جديد
+                Object.assign(e, scoreData); 
             }
         });
         interview.interviewQA = interviewQA;
@@ -92,10 +83,4 @@ export const getInterviewResult = async (req, res, next) => {
         interview.isCompleted = true;
         await interview.save()
         res.status(StatusCodes.OK).json({ success: true  , interview});
-        }
-    catch (error) {
-        if (error.response) {
-            return next(new Error(`Flask server error: ${error.response.data.error}`, { cause: StatusCodes.INTERNAL_SERVER_ERROR }));
-        }
-        return next(new Error("Failed to fetch analysis from Flask server", { cause: StatusCodes.INTERNAL_SERVER_ERROR }));
-}};
+        };
