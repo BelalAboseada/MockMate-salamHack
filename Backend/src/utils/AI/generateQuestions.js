@@ -17,6 +17,7 @@ const prompt = `
         ]
     }}
 `
+
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_AI_KEY);
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 try {
