@@ -60,7 +60,7 @@ export const Header = () => {
             <div className="flex items-center  gap-7">
               <Link to={"/profile/interview/history"}>interviews history</Link>
               <button
-                className="text-lg font-medium py-2 px-2 lg:px-4 transition-colors bg-gray-300 text-white rounded-2xl "
+                className="text-base font-medium py-2 px-2 lg:px-4 transition-colors text-gray-300 rounded-2xl "
                 onClick={handleLogout}
               >
                 Logout
