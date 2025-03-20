@@ -50,27 +50,26 @@ export const Header = () => {
               </button>
             </Link>
           ) : (
-            <span
-              className={`text-lg font-bold py-2 px-2 lg:px-4 transition-colors  ${styles.profile}`}
-            >
-              Hi , <span className="text-primary">{user.userName}</span>
-            </span>
+            <Link to={"/profile/interview/history"}>
+              <span
+                className={`text-lg font-bold py-2 px-2 lg:px-4 transition-colors  ${styles.profile}`}
+              >
+                Hi , <span className="text-primary">{user.userName}</span>
+              </span>
+            </Link>
           )}
         </div>
       </header>
-
-      <div className={`  ${styles.profilePopover}`}>
-        <Link
-          to={"/profile/interview/history"}
-          className="text-lg font-bold py-2 px-2 lg:px-4 transition-colors hover:text-primary-500"
-        >
+      {/* 
+      <div className={`  ${styles.profilePopover}`}>       
+ 
           interviews History
-        </Link>
-        {/* logout  */}
+  
         <button className="text-lg font-bold py-2 px-2 lg:px-4 transition-colors hover:text-primary-500">
           Logout
         </button>
-      </div>
+      </div> 
+      */}
     </>
   );
 };
