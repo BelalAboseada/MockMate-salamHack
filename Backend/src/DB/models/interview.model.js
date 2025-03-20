@@ -81,7 +81,7 @@ export const interviewSchema = new Schema({
             }
         ]
     }]
-})
+},{timestamps:true})
 
 
 

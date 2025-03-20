@@ -20,8 +20,7 @@ export const generateQuestions = async (req, res, next) => {
 export const getAllInterviews = async(req , res , next)=>{
     const interviews = await interviewModel.find({
         userId : req.user._id,
-        isCompleted : true
-    });
+    }).select('total_score position createdAt isCompleted')
     if(!interviews.length) 
         return next(new Error('interviews not found' , {cause : StatusCodes.NOT_FOUND}));
     return res.status(StatusCodes.ACCEPTED).json({success:true , interviews})
