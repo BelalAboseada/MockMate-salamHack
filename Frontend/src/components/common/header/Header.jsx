@@ -8,13 +8,12 @@ import { logoutUser } from "../../../redux/authSlice";
 
 export const Header = () => {
   const user = useSelector((state) => state.auth.user);
-    const dispatch = useDispatch();
-
+  const dispatch = useDispatch();
 
   //  handle logout
- const handleLogout = () => {
-   dispatch(logoutUser());
- };
+  const handleLogout = () => {
+    dispatch(logoutUser());
+  };
 
   return (
     <>
@@ -61,7 +60,7 @@ export const Header = () => {
             <div className="flex items-center  gap-7">
               <Link to={"/profile/interview/history"}>interviews history</Link>
               <button
-                className="text-lg font-medium py-2 px-2 lg:px-4 transition-colors bg-primary text-white rounded-2xl "
+                className="text-lg font-medium py-2 px-2 lg:px-4 transition-colors bg-gray-300 text-white rounded-2xl "
                 onClick={handleLogout}
               >
                 Logout
