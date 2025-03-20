@@ -4,6 +4,9 @@ export const interviewSchema = new Schema({
     position:{
         type:String
     },
+    domain:{
+        type:String
+    },
     experience_years:{
         type:String
     },

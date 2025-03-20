@@ -9,7 +9,7 @@ export const generateQuestions = async (req, res, next) => {
 
     const {questions} = await generateQuestionsFromAi(position , note , experience_years , degree ,next)
         const interview = await interviewModel.create({
-            experience_years  , position , degree , interviewQA :questions , userId : req.user._id
+            experience_years  , position , degree , interviewQA :questions , userId : req.user._id , domain : position
         })
         return res.status(StatusCodes.ACCEPTED).json({interview})
 };
