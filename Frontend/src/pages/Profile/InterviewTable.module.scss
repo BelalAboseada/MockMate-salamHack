@@ -1,0 +1,19 @@
+.container {
+  @apply bg-white p-6;
+}
+
+.status {
+  &.completed {
+    @apply text-blue-500;
+  }
+  &.uncompleted {
+    @apply text-err;
+  }
+}
+
+.button {
+  @apply bg-primary text-white px-6 py-2 rounded-md my-4 mx-auto;
+  &:hover {
+    @apply bg-primary-600;
+  }
+}

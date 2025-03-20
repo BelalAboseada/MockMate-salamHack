@@ -1,12 +1,11 @@
 import apiClient from "./apiClient";
 
 const interviewService = {
-  postInterviewSetup: () => apiClient.post("/interviews/setup"),
-  getInterviews: () => apiClient.get("/interviews"),
-  getInterviewById: (id) => apiClient.get(`/interviews/${id}`),
-  createInterview: (data) => apiClient.post("/interviews", data),
-  updateInterview: (id, data) => apiClient.put(`/interviews/${id}`, data),
-  deleteInterview: (id) => apiClient.delete(`/interviews/${id}`),
+  postInterviewSetup: (data) =>
+    apiClient.post("/interview/get-questions", data),
+  submitInterview: (id, data) =>
+    apiClient.post(`/interview/submit-interview/${id}`, data),
+  getInterviewHistory: () => apiClient.get("/interview/get-interviews/"),
 };
 
 export default interviewService;

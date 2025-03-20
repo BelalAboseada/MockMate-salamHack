@@ -1,51 +1,123 @@
-import React from "react";
-
-const feedbackTips = [
-  "يحتوي على توزيع طبيعي إلى حد ما للأحرف، على عكس استخدام",
-  "استخدام طريقة لوريم إيبسوم لجعل توزيعها طبيعيًا",
-  "هناك العديد من الاختلافات في مقاطع لوريم إيبسوم المتاحة، ولكن الأغلبية",
-  "هناك العديد من الاختلافات في مقاطع لوريم إيبسوم المتاحة، ولكن الأغلبية",
-  "حالة حقيقة مثبتة منذ زمن طويل وهي أن المحتوى المقروء لصفحة ما سيشغل القارئ عن الشكل",
-];
+import { Link, useLocation } from "react-router-dom";
 
 const Feedback = () => {
+  const location = useLocation();
+  const { feedback } = location.state;
+  console.log(location.state);
+
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-50 p-6">
-      <div className="bg-white p-6 w-full max-w-5xl rounded-lg shadow">
+    <div className="flex justify-center items-center  p-6">
+      <div className="bg-white p-6 w-full max-w-5xl">
         {/* Header Section */}
         <div className="flex justify-between items-center mb-4">
-          <button className="bg-gray-200 text-gray-600 px-3 py-1 rounded-md text-sm">
-            Back End
+          <button className="bg-gray-100 text-gray-600 px-4 py-1 rounded-3xl  text-sm">
+            Name
           </button>
           <h2 className="text-center text-xl font-semibold">Feedback & Tips</h2>
-          <span className="bg-green-100 text-green-600 px-3 py-1 rounded-md text-sm">
-            Completed
+          <span
+            className=" px-4 py-2 rounded-2xl text-sm"
+            style={{
+              color: feedback.isCompleted
+                ? "rgba(27, 123, 126, 1)"
+                : "var(--error-color)",
+              backgroundColor: feedback.isCompleted
+                ? "rgba(27, 123, 126, 0.1)"
+                : "rgba(255, 0, 0, 0.1)",
+            }}
+          >
+            {feedback.isCompleted ? "Completed" : "Ongoing"}
           </span>
         </div>
 
         {/* Progress Section */}
-        <p className="text-center text-gray-600 mb-4">
-          <span className="text-green-600 font-bold">60</span> / 100
+        <p className="text-center text-gray-600 bg-gray-100 py-1 rounded-xl w-fit px-4   my-10 mx-auto ">
+          <span
+            className={`${
+              feedback.total_score >= 80
+                ? "text-green-600"
+                : feedback.total_score >= 60
+                ? "text-yellow-600"
+                : "text-red-600"
+            } font-bold`}
+          >
+            {feedback.total_score}
+          </span>{" "}
+          / 100
         </p>
+        {/* Feedback Tips */}
+        <div className="w-full mx-auto mt-6" dir="rtl">
+          {Array.isArray(feedback.feedbackTips) &&
+            feedback.feedbackTips.length > 0 &&
+            Object.keys(feedback.feedbackTips[0]).map((status) => (
+              <div key={status} className="relative">
+                {/* Vertical Line */}
+                <div
+                  className={`absolute -right-3 top-1 h-full w-0.5 ${
+                    status === "good"
+                      ? "bg-green-200"
+                      : status === "medium"
+                      ? "bg-yellow-200"
+                      : "bg-red-300"
+                  }`}
+                ></div>
 
-        {/* Timeline List */}
-        <ol className="relative border-s border-gray-300">
-          {feedbackTips.map((tip, index) => (
-            <li key={index} className="mb-6 ms-4 relative">
-              {/* Dot Indicator */}
-              <div className="absolute w-3 h-3 bg-teal-500 rounded-full mt-1.5 -start-1.5 border border-white"></div>
+                <ul className="relative w-full ps-7">
+                  {/* Status Circle */}
+                  {Array.isArray(feedback.feedbackTips[0][status]) &&
+                    feedback.feedbackTips[0][status].length > 0 && (
+                      <div
+                        className={`absolute w-3 h-3 ${
+                          status === "good"
+                            ? "bg-green-500"
+                            : status === "medium"
+                            ? "bg-yellow-300"
+                            : "bg-red-400"
+                        } rounded-full top-1 right-[-17px]`}
+                      ></div>
+                    )}
+                  {/* List Items */}
+                  {Array.isArray(feedback.feedbackTips[0][status]) &&
+                    feedback.feedbackTips[0][status].map(
+                      (tip, index, array) => (
+                        <li
+                          key={tip._id}
+                          className={`mb-4 flex items-center font-medium text-lg ${
+                            status === "good"
+                              ? "bg-green-100"
+                              : status === "medium"
+                              ? "bg-yellow-100"
+                              : "bg-red-100"
+                          } py-2 px-3 rounded-3xl text-gray-800 shadow-sm`}
+                        >
+                          <p>{tip.tip}</p>
+                        </li>
+                      )
+                    )}
 
-              {/* Feedback Content */}
-              <div
-                className={`p-3 rounded-md shadow text-gray-700 ${
-                  index % 2 === 0 ? "bg-blue-50" : "bg-yellow-50"
-                }`}
-              >
-                {tip}
+                  {/* End Circle - Only for the last item in each status */}
+                  {Array.isArray(feedback.feedbackTips[0][status]) &&
+                    feedback.feedbackTips[0][status].length > 0 && (
+                      <div
+                        className={`absolute w-3 h-3 ${
+                          status === "good"
+                            ? "bg-green-500"
+                            : status === "medium"
+                            ? "bg-yellow-300"
+                            : "bg-red-400"
+                        } rounded-full -bottom-2 right-[-17px]`}
+                      />
+                    )}
+                </ul>
               </div>
-            </li>
-          ))}
-        </ol>
+            ))}
+        </div>
+
+        {/* new interview btn */}
+        <Link to={"/interview/setup"} className="flex justify-center mt-20 ">
+          <button className="bg-primary text-white px-6 py-2 rounded-md">
+            New interview
+          </button>
+        </Link>
       </div>
     </div>
   );

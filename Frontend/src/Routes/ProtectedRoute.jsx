@@ -4,8 +4,6 @@ import { Navigate, useLocation } from "react-router-dom";
 const ProtectedRoute = ({ children }) => {
   const auth = useSelector((state) => state.auth);
 
-  console.log(auth);
-
   const location = useLocation();
 
   if (!auth.isAuthenticated) {

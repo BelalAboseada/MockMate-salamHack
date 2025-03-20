@@ -1,124 +1,165 @@
+import { useNavigate, useLocation } from "react-router-dom";
 import React, { useState } from "react";
-import styles from "./style.module.scss";
-import { useSelector, useDispatch } from "react-redux";
-// import { submitAnswer, finishQuiz } from "../redux/quizSlice";
+import { useDispatch } from "react-redux";
 import { AiOutlineAudio } from "react-icons/ai";
 import WarningPopup from "../../../components/UI/popup/WarningPopup";
-
-const questions = [
-  "وضح الفرق بين HTTP GET و HTTP POST؟",
-  "ما هو RESTful API؟",
-  "كيف يعمل التوثيق في HTTP؟",
-  "ما هو CORS؟",
-  "ما هو JWT؟",
-  "ما هو JSON Web Token؟",
-  "ما هو JSON Web Signature؟",
-  "ما هو JSON Web Encryption؟",
-  "ما هو JSON Web Key؟",
-  "ما هو JSON Web Token (JWT)؟",
-];
+import interviewService from "../../../services/InterviewSerice";
+import Loader from "../../../components/Loader/Loader";
 
 const Interview = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { interviewId, interviewQA } = location.state;
+
+  // Store current question index
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [isPopupOpen, setPopupOpen] = useState(false);
-  const [answers, setAnswers] = useState(Array(questions.length).fill(""));
+  const [answers, setAnswers] = useState([...interviewQA]); // Deep copy to avoid modifying state directly
+  const [Loading, setLoading] = useState(false);
 
+  // Handle input change
   const handleInputChange = (e) => {
-    const newAnswers = [...answers];
-    newAnswers[currentQuestion] = e.target.value;
-    setAnswers(newAnswers);
+    const updatedAnswers = [...answers];
+    updatedAnswers[currentQuestion].answer = e.target.value || "";
+    setAnswers(updatedAnswers);
   };
 
-  const handleSubmit = () => {
-    if (currentQuestion < questions.length - 1) {
-      setCurrentQuestion(currentQuestion + 1);
-    } else {
-      // dispatch(finishQuiz(answers));
+  // Handle submit
+  const handleSubmit = async () => {
+    const formattedAnswers = answers.map(({ _id, number, answer }) => ({
+      questionId: _id,
+      number,
+      answer: answer || "Not answered yet",
+    }));
+    console.log({
+      answers: formattedAnswers,
+    });
+
+    try {
+      setLoading(true);
+      const res = await interviewService.submitInterview(interviewId, {
+        answers: formattedAnswers,
+      });
+      console.log(res);
+      console.log("Answers submitted successfully");
+      setLoading(false);
+      navigate("/interview/Feedback", {
+        state: { feedback: res.data.interview },
+      });
+    } catch (error) {
+      console.error("Error submitting interview:", error);
+      setLoading(false);
     }
   };
+
+  // Handle navigation
+  const handleNext = () => {
+    if (currentQuestion < interviewQA.length - 1) {
+      setCurrentQuestion((prev) => prev + 1);
+    } else {
+      handleSubmit();
+    }
+  };
+
   const handleBack = () => {
     if (currentQuestion > 0) {
-      setCurrentQuestion(currentQuestion - 1);
+      setCurrentQuestion((prev) => prev - 1);
     }
   };
 
   return (
     <div className="flex flex-col items-center p-6">
-      <div className="w-full max-w-5xl bg-white  rounded-lg p-6  ">
-        <div className="flex justify-between items-center mb-4">
-          <button
-            className=" text-Neutral-700 select-none hover:text-Neutral-600 disabled:opacity-50 disabled:cursor-not-allowed  cursor-pointer"
-            onClick={handleBack}
-            disabled={currentQuestion === 0}
-          >
-            &larr; Back End
-          </button>
-          <span className="text-lg font-semibold">
-            {currentQuestion + 1}{" "}
-            <span
-              className={` ${
-                currentQuestion + 1 === questions.length
-                  ? "text-Neutral-700"
-                  : "text-Neutral"
+      {Loading ? (
+        <Loader />
+      ) : (
+        <div className="w-full max-w-5xl bg-white rounded-lg p-6">
+          {/* Navigation Buttons */}
+          <div className="flex justify-between items-center mb-4">
+            <button
+              className={`text-Neutral-700 hover:text-Neutral-600 cursor-pointer ${
+                currentQuestion === 0 ? "opacity-0" : "opacity-100"
               }`}
+              onClick={handleBack}
+              disabled={currentQuestion === 0}
             >
-              /{questions.length} Question
+              &larr; Q {currentQuestion}
+            </button>
+
+            <span className="text-lg font-semibold">
+              {currentQuestion + 1}{" "}
+              <span
+                className={`${
+                  currentQuestion + 1 === interviewQA.length
+                    ? "text-Neutral-700"
+                    : "text-Neutral"
+                }`}
+              >
+                /{interviewQA.length} Question
+              </span>
             </span>
-          </span>
-          <button
-            className={`${
-              currentQuestion + 1 === questions.length
-                ? "text-primary-700 bg-primary-100 "
-                : "bg-red-100  text-red-600 "
-            } px-6 py-2 rounded-2xl `}
-            onClick={() => setPopupOpen(true)}
+
+            <button
+              className={`px-6 py-2 rounded-2xl ${
+                currentQuestion + 1 === interviewQA.length
+                  ? "text-primary-700 bg-primary-100"
+                  : "bg-red-100 text-red-600"
+              }`}
+              onClick={
+                currentQuestion + 1 === interviewQA.length
+                  ? handleSubmit()
+                  : () => setPopupOpen(true)
+              }
+            >
+              End & Review
+            </button>
+
+            <WarningPopup
+              isOpen={isPopupOpen}
+              onClose={() => setPopupOpen(false)}
+              onConfirm={handleSubmit}
+            />
+          </div>
+
+          {/* Question & Answer Section */}
+          <div
+            className="border-dashed border-2 border-gray-300 rounded-lg p-6 text-center"
+            style={{ background: "rgba(253, 253, 253, 1)" }}
           >
-            End & Review
-          </button>
-          <WarningPopup
-            isOpen={isPopupOpen}
-            onClose={() => setPopupOpen(false)}
-            onConfirm={() => {
-              setPopupOpen(false);
-              console.log("Interview Ended");
-            }}
-          />
-        </div>
-        <div
-          className="border-dashed border-2 border-gray-300 rounded-lg p-6 text-center"
-          style={{
-            background: "rgba(253, 253, 253, 1)",
-          }}
-        >
-          <h2 className="text-xl font-semibold mb-4" dir="rtl">
-            {questions[currentQuestion]}
-          </h2>
-          <textarea
-            className="w-full p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-primary-700 placeholder:text-left"
-            placeholder="Type your answer"
-            value={answers[currentQuestion]}
-            dir="rtl"
-            rows="10"
-            cols="50"
-            onChange={handleInputChange}
-          ></textarea>
+            <h2 className="text-xl font-semibold mb-4" dir="rtl">
+              {interviewQA[currentQuestion].question} ؟
+            </h2>
+
+            <textarea
+              className="w-full p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-primary-700 placeholder:text-left"
+              placeholder="Type your answer"
+              value={answers[currentQuestion]?.answer || ""}
+              dir="rtl"
+              rows="10"
+              cols="50"
+              onChange={handleInputChange}
+            />
+
+            {/* Voice Input Button
           <div className="flex flex-col items-center mt-4">
             <span className="text-gray-500 mb-2">Or</span>
             <button className="p-3 bg-gray-200 rounded-full">
               <AiOutlineAudio size={24} className="text-gray-600" />
             </button>
+          </div> */}
+          </div>
+
+          {/* Next Button */}
+          <div className="flex justify-center">
+            <button
+              className="mt-6 bg-primary text-white px-10 py-2 rounded-lg hover:bg-primary-700"
+              onClick={handleNext}
+            >
+              {currentQuestion < interviewQA.length - 1 ? "Next" : "Review"}
+            </button>
           </div>
         </div>
-        <div className="flex justify-center">
-          <button
-            className="mt-6 bg-primary text-white px-10 py-2 rounded-lg hover:bg-primary-700"
-            onClick={handleSubmit}
-          >
-            {currentQuestion < questions.length - 1 ? "Next" : "Review"}
-          </button>
-        </div>
-      </div>
+      )}
     </div>
   );
 };

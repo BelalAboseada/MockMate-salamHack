@@ -23,7 +23,7 @@ const WarningPopup = ({ isOpen, onClose, onConfirm }) => {
             Cancel
           </button>
           <button className={styles["end-button"]} onClick={onConfirm}>
-            <Link className="text-white" to="/interview/Feedback">End</Link>
+            End
           </button>
         </div>
       </div>

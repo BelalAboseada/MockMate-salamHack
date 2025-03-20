@@ -7,7 +7,7 @@ $gray-dark: #4b5563;
   justify-content: space-between;
   align-items: flex-start;
   gap: 20px;
-  min-height: 100vh;
+  // min-height: 100vh;
   padding: 40px;
 }
 
@@ -113,9 +113,12 @@ select {
 
   li {
     margin-bottom: 23px;
+
     font-size: 18px;
     font-weight: 500;
+    
   }
+
 }
 
 .instructionsTitle {
@@ -128,6 +131,7 @@ select {
 .warning {
   color: var(--err-color);
   font-weight: 500;
+  margin-bottom: 15px !important;
 }
 
 .button {

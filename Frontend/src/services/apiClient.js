@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:3000";
+const API_BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:3004";
 
 const apiClient = axios.create({
   baseURL: API_BASE_URL,
@@ -10,9 +10,10 @@ const apiClient = axios.create({
 });
 
 apiClient.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token");
+  const token = sessionStorage.getItem("accessToken");
   if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+  config.headers.authorization = `user ${token}`;
+  console.log("Authorization Header:", config.headers.authorization);
   }
   return config;
 });
@@ -26,11 +27,6 @@ apiClient.interceptors.response.use(
 );
 
 export default apiClient;
-
-
-
-
-
 
 // apiClient.interceptors.response.use(
 //   (response) => response,

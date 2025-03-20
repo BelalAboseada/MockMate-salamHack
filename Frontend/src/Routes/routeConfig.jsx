@@ -4,6 +4,8 @@ import SignUp from "../pages/Auth/SignUp/SignUp";
 import Interview from "../pages/Interview/InterviewProcess/Interview";
 import InterviewSetup from "../pages/Interview/InterviewSetup/InterviewSetup";
 import Feedback from "../pages/Interview/Feedback/Feedback";
+import InterviewHistory from "../pages/Profile/InterviewHistory";
+import SignIn from "../pages/Auth/SignIn/SignIn";
 
 // Define public routes
 export const publicRoutes = [
@@ -11,6 +13,10 @@ export const publicRoutes = [
   {
     path: "/signUp",
     component: <SignUp />,
+  },
+  {
+    path: "/signIn",
+    component: <SignIn />,
   },
 ];
 
@@ -27,5 +33,9 @@ export const protectedRoutes = [
   {
     path: "/interview/Feedback",
     component: <Feedback />,
+  },
+  {
+    path: "/profile/interview/history",
+    component: <InterviewHistory />,
   },
 ];

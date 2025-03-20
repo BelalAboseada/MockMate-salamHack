@@ -1,0 +1,30 @@
+.profile {
+  position: relative;
+  cursor: pointer;
+
+  &:hover .profilePopover {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: auto;
+  }
+}
+
+.profilePopover {
+  opacity: 0;
+  transform: scale(0.95);
+  pointer-events: none;
+  z-index: 1;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+  padding: 8px;
+  text-align: center;
+  font-size: 14px;
+  width: 150px;
+  color: #333;
+  transition: all 0.2s ease-in-out;
+}
