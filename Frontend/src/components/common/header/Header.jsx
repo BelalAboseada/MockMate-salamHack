@@ -3,10 +3,18 @@ import logoDesktop from "../../../assets/images/mockmate-logo.png";
 import logoMobile from "../../../assets/images/Logo.png";
 import { Link } from "react-router-dom";
 import clsx from "classnames";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { logoutUser } from "../../../redux/authSlice";
 
 export const Header = () => {
   const user = useSelector((state) => state.auth.user);
+    const dispatch = useDispatch();
+
+
+  //  handle logout
+ const handleLogout = () => {
+   dispatch(logoutUser());
+ };
 
   return (
     <>
@@ -50,13 +58,22 @@ export const Header = () => {
               </button>
             </Link>
           ) : (
-            <Link to={"/profile/interview/history"}>
-              <span
-                className={`text-lg font-bold py-2 px-2 lg:px-4 transition-colors  ${styles.profile}`}
+            <div className="flex items-center  gap-7">
+              <Link to={"/profile/interview/history"}>interviews history</Link>
+              <button
+                className="text-lg font-medium py-2 px-2 lg:px-4 transition-colors bg-primary text-white rounded-2xl "
+                onClick={handleLogout}
               >
-                Hi , <span className="text-primary">{user.userName}</span>
-              </span>
-            </Link>
+                Logout
+              </button>
+            </div>
+            // <Link to={"/profile/interview/history"}>
+            //   <span
+            //     className={`text-lg font-bold py-2 px-2 lg:px-4 transition-colors  ${styles.profile}`}
+            //   >
+            //     Hi , <span className="text-primary">{user.userName}</span>
+            //   </span>
+            // </Link>
           )}
         </div>
       </header>
