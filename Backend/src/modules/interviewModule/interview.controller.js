@@ -40,8 +40,9 @@ export const getInterviewResult = async (req, res, next) => {
         QA.map(e =>  {
             if(e._id.toString() === answer.questionId.toString())
                 {
-                if(!answer.answer) 
+                if(!answer.answer){
                     answer.answer ='not answered yet'
+                }
                 e.answer = answer.answer
                 }
             })
@@ -68,6 +69,5 @@ export const getInterviewResult = async (req, res, next) => {
         interview.isCompleted = true;
         interview.feedbackTips = feedbackTips
         await interview.save()
-        
         return res.status(StatusCodes.OK).json({ success: true  , interview});
         };
