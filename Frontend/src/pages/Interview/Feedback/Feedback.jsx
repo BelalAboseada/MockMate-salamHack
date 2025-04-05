@@ -10,12 +10,14 @@ const Feedback = () => {
       <div className="bg-white p-3 md:p-6 w-full max-w-5xl">
         {/* Header Section */}
         <div className="flex justify-between items-center mb-4">
-          <button className="bg-gray-100 text-gray-600 px-4 py-1 rounded-3xl  text-sm">
-           {feedback.position}
+          <button className="bg-gray-100 text-gray-600 px-2 md:px-4 py-1 rounded-3xl text-xs md:text-sm">
+            {feedback.position}
           </button>
-          <h2 className="text-center text-base md:text-xl font-semibold">Feedback & Tips</h2>
+          <h2 className="text-center text-base md:text-xl font-semibold">
+            Feedback & Tips
+          </h2>
           <span
-            className=" px-4 py-2 rounded-2xl text-sm"
+            className="px-2 md:px-4 py-2 rounded-2xl text-xs md:text-sm"
             style={{
               color: feedback.isCompleted
                 ? "rgba(27, 123, 126, 1)"
