@@ -13,13 +13,13 @@ export const registerUser = createAsyncThunk(
       sessionStorage.setItem("accessToken", response.data.accessToken);
       sessionStorage.setItem("user", JSON.stringify(response.data.user));
 
-      toast.success("Registration successful!"); // إشعار نجاح
+      toast.success("Registration successful!"); 
 
       return response.data;
     } catch (error) {
       const errorMessage =
         error.response?.data?.message || "Network error. Please try again!";
-      toast.error(errorMessage); // إشعار خطأ
+      toast.error(errorMessage); 
       return rejectWithValue(errorMessage);
     }
   }
@@ -31,6 +31,8 @@ export const loginUser = createAsyncThunk(
   async (userData, { rejectWithValue }) => {
     try {
       const response = await apiClient.post("/auth/log-in", userData);
+      console.log(response);
+      
 
      
       sessionStorage.setItem("accessToken", response.data.accessToken);
@@ -50,20 +52,19 @@ export const loginUser = createAsyncThunk(
 );
 
 // Async Thunk for Logout
-export const logoutUser = createAsyncThunk("auth/logout", async () => {
-  await apiClient.post("/auth/logout");
-
-
+export const logoutUser = createAsyncThunk("auth/logout", () => {
   sessionStorage.removeItem("accessToken");
   sessionStorage.removeItem("user");
 
   toast.success("Logged out successfully!"); 
+ 
+
 });
 
 const authSlice = createSlice({
   name: "auth",
   initialState: {
-    user: JSON.parse(sessionStorage.getItem("user")) || null,
+    user: sessionStorage.getItem("user"),
     accessToken: sessionStorage.getItem("accessToken") || null,
     isAuthenticated: !!sessionStorage.getItem("accessToken"),
     loading: false,
@@ -113,5 +114,7 @@ const authSlice = createSlice({
       });
   },
 });
+
+
 
 export default authSlice.reducer;

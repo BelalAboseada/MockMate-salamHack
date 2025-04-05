@@ -15,15 +15,16 @@ const Layout = () => {
     draggable: true,
     progress: undefined,
   };
-  
+
   return (
     <div className="flex flex-col h-screen">
-      
       <Header className="w-full" />
       <div className="flex flex-1">
         <main
-          className={`${
-            location.pathname === "/signUp" || location.pathname === "/signIn" ? "p-0" : "flex-1  p-2 md:p-4"
+          className={`flex-auto ${
+            location.pathname === "/signUp" || location.pathname === "/signIn"
+              ? "p-0"
+              : "p-2 md:p-4"
           }`}
         >
           <AppRoutes />

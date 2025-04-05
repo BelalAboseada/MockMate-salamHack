@@ -3,10 +3,15 @@
 .signUp {
   display: flex;
   align-items: center;
-  height: 92vh;
+  justify-content: center;
+  // height: 100%;
+  width: 100%;
+  margin-top: 10vh;
   @include md {
     overflow-y: hidden;
     justify-content: space-between;
+    height: 92vh;
+    margin-top: 0;
   }
 
   &__container {
@@ -36,8 +41,10 @@
       bottom: -140px;
       transform: rotate(-30deg);
       z-index: -1;
+      display: none;
 
       @include lg {
+        display: block;
         width: 500px;
         height: 500px;
         left: -100px;
@@ -56,7 +63,7 @@
   }
 
   &__right {
-    flex: 1;
+    // flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -64,40 +71,28 @@
     text-align: center;
 
     @include md {
-      padding:  100px;
+      padding: 100px;
       text-align: left;
-         align-items: normal;
+      align-items: normal;
     }
   }
 
   &__title {
-    font-size: 24px;
+    font-size: 20px;
     font-weight: bold;
     margin-bottom: 25px;
     color: #333;
+    @include md {
+      font-size: 24px;
+    }
   }
 
   &__form {
     display: flex;
     flex-direction: column;
     gap: 15px;
-
-    &__input {
-      width: 100%;
-      padding: 20px 0 !important;
-      border: 1px solid #ccc;
-      border-radius: 13px;
-      font-size: 16px;
-
-    }
   }
-  &__input {
-    width: 100%;
-    padding: 20px 0 !important;
-    border: 1px solid #ccc;
-    border-radius: 13px;
-    font-size: 16px;
-  }
+
   &__password {
     position: relative;
     display: flex;
@@ -135,5 +130,17 @@
     &:hover {
       background: #004d40;
     }
+  }
+}
+
+.form__input {
+  min-width: 300px;
+  width: 100%;
+  padding: 12px 24px;
+  border: 1px solid #ccc;
+  border-radius: 13px;
+  font-size: 16px;
+  @include md {
+    min-width: 500px;
   }
 }

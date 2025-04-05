@@ -6,14 +6,14 @@ const Feedback = () => {
   console.log(location.state);
 
   return (
-    <div className="flex justify-center items-center  p-6">
-      <div className="bg-white p-6 w-full max-w-5xl">
+    <div className="flex justify-center items-center p-1 md:p-6">
+      <div className="bg-white p-3 md:p-6 w-full max-w-5xl">
         {/* Header Section */}
         <div className="flex justify-between items-center mb-4">
           <button className="bg-gray-100 text-gray-600 px-4 py-1 rounded-3xl  text-sm">
-            Name
+           {feedback.position}
           </button>
-          <h2 className="text-center text-xl font-semibold">Feedback & Tips</h2>
+          <h2 className="text-center text-base md:text-xl font-semibold">Feedback & Tips</h2>
           <span
             className=" px-4 py-2 rounded-2xl text-sm"
             style={{

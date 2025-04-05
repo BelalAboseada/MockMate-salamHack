@@ -1,7 +1,7 @@
 import styles from "./style.module.scss";
 import logoDesktop from "../../../assets/images/mockmate-logo.png";
 import logoMobile from "../../../assets/images/Logo.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import clsx from "classnames";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../../redux/authSlice";
@@ -9,10 +9,12 @@ import { logoutUser } from "../../../redux/authSlice";
 export const Header = () => {
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
+  const navigate =  useNavigate()
 
   //  handle logout
   const handleLogout = () => {
     dispatch(logoutUser());
+    navigate("/signIn");
   };
 
   return (
@@ -62,6 +64,7 @@ export const Header = () => {
               <button
                 className="text-base font-medium py-2 px-2 lg:px-4 transition-colors text-gray-300 rounded-2xl "
                 onClick={handleLogout}
+                aria-label="Logout"
               >
                 Logout
               </button>

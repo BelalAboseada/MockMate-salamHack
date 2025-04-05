@@ -19,7 +19,7 @@ const InterviewSetup = () => {
       "UI & UX Designer",
       "Full Stack",
       "SEO Manager",
-      "Human Resource Management",
+      "Human Resourcpe Management",
       "Sales Representative",
       "Front End Developer",
       "Marketing Coordinator",
@@ -124,13 +124,14 @@ const InterviewSetup = () => {
 
             {/* College Degree */}
             <label htmlFor="degree" className={styles.label}>
-              College Degree
+              College Degree <span>*</span>
             </label>
             <input
               type="text"
               placeholder="Ex: Bachelor"
               className={styles.input}
               value={degree}
+              required
               onChange={(e) => setDegree(e.target.value)}
               name="degree"
               id="degree"
@@ -138,7 +139,7 @@ const InterviewSetup = () => {
 
             {/* Note */}
             <label htmlFor="note" className={styles.label}>
-              Note
+              Note <span>*</span>
             </label>
             <textarea
               className={styles.textarea}
@@ -147,6 +148,7 @@ const InterviewSetup = () => {
               onChange={(e) => setNote(e.target.value)}
               name="note"
               id="note"
+              required
               form="note"
               aria-labelledby="note"
               aria-describedby="note"

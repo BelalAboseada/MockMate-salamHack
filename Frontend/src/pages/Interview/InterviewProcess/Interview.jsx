@@ -69,11 +69,11 @@ const Interview = () => {
   };
 
   return (
-    <div className="flex flex-col items-center p-6">
+    <div className="flex flex-col items-center py-4 md:p-6">
       {Loading ? (
         <Loader />
       ) : (
-        <div className="w-full max-w-5xl bg-white rounded-lg p-6">
+        <div className="w-full md:max-w-5xl bg-white rounded-lg p-3 md:p-6">
           {/* Navigation Buttons */}
           <div className="flex justify-between items-center mb-4">
             <button
@@ -95,12 +95,13 @@ const Interview = () => {
                     : "text-Neutral"
                 }`}
               >
-                /{interviewQA.length} Question
+                /{interviewQA.length}{" "}
+                <span className="hidden md:block">Question</span>
               </span>
             </span>
 
             <button
-              className={`px-6 py-2 rounded-2xl ${
+              className={`px-4 md:px-6 py-2 rounded-2xl text-sm md:text-base ${
                 currentQuestion + 1 === interviewQA.length
                   ? "text-primary-700 bg-primary-100"
                   : "bg-red-100 text-red-600"

@@ -92,7 +92,7 @@ const SignUp = () => {
               <input
                 type={showPass ? "text" : "password"}
                 placeholder="Password"
-                className={styles.input}
+                className={styles.form__input}
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
@@ -144,7 +144,10 @@ const SignUp = () => {
             </button>
             <p className={`text-center text-sm text-gray-500`}>
               Already have an account?{" "}
-              <Link to="/signIn" className={`underline underline-offset-1 text-primary`}>
+              <Link
+                to="/signIn"
+                className={`underline underline-offset-1 text-primary`}
+              >
                 Login
               </Link>
             </p>

@@ -18,7 +18,6 @@ const SignIn = () => {
   const dispatch = useDispatch();
   const { loading, error } = useSelector((state) => state.auth);
   console.log(useSelector((state) => state.auth));
-  
 
   const handleShowPass = useCallback(() => {
     setShowPass((prev) => !prev);
@@ -32,8 +31,9 @@ const SignIn = () => {
     e.preventDefault();
 
     dispatch(loginUser(formData)).then((res) => {
+      console.log(res);
       if (res.meta.requestStatus === "fulfilled") {
-        toast.success("Account created successfully!");
+        toast.success("Login successful!");
         navigate("/");
         window.location.reload();
       }
@@ -63,7 +63,7 @@ const SignIn = () => {
 
         {/* Right Section */}
         <div className={styles.signUp__right}>
-          <h1 className={styles.signUp__title}>Create Account</h1>
+          <h1 className={styles.signUp__title}>Sign In</h1>
 
           <form className={styles.signUp__form} onSubmit={handleSubmit}>
             <input
@@ -104,9 +104,7 @@ const SignIn = () => {
 
             {/* Error Message */}
             {error && (
-              <p className={`text-center text-sm text-red-500`}>
-                {error}
-              </p>
+              <p className={`text-center text-sm text-red-500`}>{error}</p>
             )}
 
             {/* Submit Button */}

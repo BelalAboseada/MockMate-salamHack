@@ -49,7 +49,7 @@ const InterviewHistory = () => {
               interviews.map((interview, index) => (
                 <div
                   key={index}
-                  className={`flex justify-between p-4 ${
+                  className={`flex flex-col gap-1 md:flex-row md:justify-between p-4 ${
                     index !== interviews.length - 1 && "border-b"
                   } border-gray-200`}
                 >
