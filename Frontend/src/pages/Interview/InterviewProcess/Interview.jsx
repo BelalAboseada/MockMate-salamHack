@@ -1,5 +1,5 @@
 import { useNavigate, useLocation } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { AiOutlineAudio } from "react-icons/ai";
 import WarningPopup from "../../../components/UI/popup/WarningPopup";
@@ -17,6 +17,7 @@ const Interview = () => {
   const [isPopupOpen, setPopupOpen] = useState(false);
   const [answers, setAnswers] = useState([...interviewQA]); // Deep copy to avoid modifying state directly
   const [Loading, setLoading] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(30 * 60);
 
   // Handle input change
   const handleInputChange = (e) => {
@@ -26,23 +27,20 @@ const Interview = () => {
   };
 
   // Handle submit
-  const handleSubmit = async () => {
+  const handleSubmit = useCallback(async () => {
     const formattedAnswers = answers.map(({ _id, number, answer }) => ({
       questionId: _id,
       number,
       answer: answer || "Not answered yet",
     }));
-    console.log({
-      answers: formattedAnswers,
-    });
+  
 
     try {
       setLoading(true);
       const res = await interviewService.submitInterview(interviewId, {
         answers: formattedAnswers,
       });
-      console.log(res);
-      console.log("Answers submitted successfully");
+    
       setLoading(false);
       navigate("/interview/Feedback", {
         state: { feedback: res.data.interview },
@@ -51,7 +49,7 @@ const Interview = () => {
       console.error("Error submitting interview:", error);
       setLoading(false);
     }
-  };
+  }, [answers]);
 
   // Handle navigation
   const handleNext = () => {
@@ -68,12 +66,40 @@ const Interview = () => {
     }
   };
 
+  // countdown  effect
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTimeLeft((prevTime) => {
+        if (prevTime <= 1) {
+          clearInterval(interval);
+          handleSubmit(); // Auto-submit on timeout
+          return 0;
+        }
+        return prevTime - 1;
+      });
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const formatTime = (seconds) => {
+    const min = String(Math.floor(seconds / 60)).padStart(2, "0");
+    const sec = String(seconds % 60).padStart(2, "0");
+    return `${min}:${sec}`;
+  };
+
   return (
     <div className="flex flex-col items-center py-4 md:p-6">
       {Loading ? (
         <Loader />
       ) : (
         <div className="w-full md:max-w-5xl bg-white rounded-lg p-3 md:p-6">
+          <div
+            className={`absolute top-8 right-8 text-sm md:text-base bg-gray-100 px-4 py-2 rounded-md shadow-md ${
+              timeLeft > 10 * 60 ? "text-success" : "text-red-600"
+            }  font-semibold z-10`}
+          >
+            ⏱ Time Left: {formatTime(timeLeft)}
+          </div>
           {/* Navigation Buttons */}
           <div className="flex justify-between items-center mb-4">
             <button
@@ -95,7 +121,7 @@ const Interview = () => {
                     : "text-Neutral"
                 }`}
               >
-                /{interviewQA.length}{" "}
+                /{interviewQA.length}
                 <span className="hidden md:block">Question</span>
               </span>
             </span>
@@ -119,6 +145,9 @@ const Interview = () => {
               isOpen={isPopupOpen}
               onClose={() => setPopupOpen(false)}
               onConfirm={handleSubmit}
+              title={"Are You Sure You Want To End This Interview?"}
+              sub_title={"You Will Lose Your Progress"}
+              btn={"End"}
             />
           </div>
 
@@ -153,7 +182,7 @@ const Interview = () => {
           {/* Next Button */}
           <div className="flex justify-center">
             <button
-              className="mt-6 bg-primary text-white px-10 py-2 rounded-lg hover:bg-primary-700"
+              className="mt-6 bg-primary select-none text-white px-10 py-2 rounded-lg hover:bg-primary-700"
               onClick={handleNext}
             >
               {currentQuestion < interviewQA.length - 1 ? "Next" : "Review"}

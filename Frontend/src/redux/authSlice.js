@@ -31,10 +31,6 @@ export const loginUser = createAsyncThunk(
   async (userData, { rejectWithValue }) => {
     try {
       const response = await apiClient.post("/auth/log-in", userData);
-      console.log(response);
-      
-
-     
       sessionStorage.setItem("accessToken", response.data.accessToken);
       sessionStorage.setItem("user", JSON.stringify(response.data.user));
 

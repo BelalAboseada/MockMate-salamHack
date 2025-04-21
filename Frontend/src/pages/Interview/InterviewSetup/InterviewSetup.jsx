@@ -12,6 +12,7 @@ const InterviewSetup = () => {
   const [degree, setDegree] = useState("");
   const [note, setNote] = useState("");
   const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
 
   const jobTitles = useMemo(
@@ -19,7 +20,7 @@ const InterviewSetup = () => {
       "UI & UX Designer",
       "Full Stack",
       "SEO Manager",
-      "Human Resourcpe Management",
+      "Human Resource Management",
       "Sales Representative",
       "Front End Developer",
       "Marketing Coordinator",
@@ -44,7 +45,7 @@ const InterviewSetup = () => {
           degree,
           note,
         });
-        console.log(response);
+    
 
         if (response.status === 202) {
           toast.success("Interview setup successful!");
@@ -79,7 +80,7 @@ const InterviewSetup = () => {
           <form className={styles.formContainer} onSubmit={handleSubmit}>
             {/* Position Selection */}
             <label className={styles.label}>
-              Position <span>*</span>
+              Position <span className="required_star">*</span>
             </label>
             <input
               type="text"
@@ -106,7 +107,7 @@ const InterviewSetup = () => {
 
             {/* Role Level */}
             <label htmlFor="experience_years" className={styles.label}>
-              Role Level <span>*</span>
+              Role Level <span className="required_star">*</span>
             </label>
             <select
               className={styles.input}
@@ -116,7 +117,9 @@ const InterviewSetup = () => {
               id="experience_years"
               aria-describedby="experience_years-desc"
             >
-              <option value="">Select your role level</option>
+              <option value="" disabled selected hidden>
+                Select your role level
+              </option>
               <option value="Junior">Junior</option>
               <option value="Mid">Mid</option>
               <option value="Senior">Senior</option>
@@ -124,7 +127,7 @@ const InterviewSetup = () => {
 
             {/* College Degree */}
             <label htmlFor="degree" className={styles.label}>
-              College Degree <span>*</span>
+              College Degree <span className="required_star">*</span>
             </label>
             <input
               type="text"
@@ -139,7 +142,7 @@ const InterviewSetup = () => {
 
             {/* Note */}
             <label htmlFor="note" className={styles.label}>
-              Note <span>*</span>
+              Note <span className="required_star">*</span>
             </label>
             <textarea
               className={styles.textarea}

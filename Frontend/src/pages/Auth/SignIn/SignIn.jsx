@@ -17,7 +17,6 @@ const SignIn = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { loading, error } = useSelector((state) => state.auth);
-  console.log(useSelector((state) => state.auth));
 
   const handleShowPass = useCallback(() => {
     setShowPass((prev) => !prev);
@@ -31,7 +30,6 @@ const SignIn = () => {
     e.preventDefault();
 
     dispatch(loginUser(formData)).then((res) => {
-      console.log(res);
       if (res.meta.requestStatus === "fulfilled") {
         toast.success("Login successful!");
         navigate("/");
@@ -45,9 +43,9 @@ const SignIn = () => {
   };
   return (
     <div className={styles.signUp}>
-      {/* {loading ? (
+      {loading ? (
         <Loader />
-      ) : ( */}
+      ) : (
       <div className={styles.signUp__container}>
         {/* Left Section */}
         <div className={styles.signUp__left}>
@@ -128,7 +126,7 @@ const SignIn = () => {
           </form>
         </div>
       </div>
-      {/* )} */}
+       )} 
     </div>
   );
 };

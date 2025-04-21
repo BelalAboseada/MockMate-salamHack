@@ -13,7 +13,7 @@ const InterviewHistory = () => {
     const fetchInterviews = async () => {
       try {
         const response = await interviewService.getInterviewHistory();
-        console.log(response.data.interviews);
+     
         setInterviews(response.data.interviews);
       } catch (err) {
         setError("Failed to fetch interview history");

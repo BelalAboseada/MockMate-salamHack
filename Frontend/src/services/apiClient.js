@@ -13,12 +13,11 @@ const apiClient = axios.create({
 
 apiClient.interceptors.request.use((config) => {
   const token = sessionStorage.getItem("accessToken");
-  console.log("access token: ", token);
+  
 
   if (token) {
     config.headers.authorization = `user ${token}`;
-    console.log(config.headers);
-    console.log("Authorization Header:", config.headers.authorization);
+
   }
   return config;
 });

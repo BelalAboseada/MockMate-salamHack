@@ -1,19 +1,21 @@
 import { useLocation } from "react-router-dom";
 import AppRoutes from "../../Routes/AppRoutes";
 import { Header } from "../common/header/Header.jsx";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, Bounce } from "react-toastify";
 
 const Layout = () => {
   const location = useLocation();
 
   const options = {
-    position: "bottom-right",
-    autoClose: 5000,
-    hideProgressBar: false,
-    closeOnClick: true,
+    position: "top-center",
+    autoClose: 500,
+    hideProgressBar: true,
+    closeOnClick: false,
     pauseOnHover: true,
     draggable: true,
     progress: undefined,
+    theme: "light",
+    transition: Bounce,
   };
 
   return (
@@ -30,7 +32,7 @@ const Layout = () => {
           <AppRoutes />
         </main>
       </div>
-      <ToastContainer options={options} stacked />
+      <ToastContainer {...options} stacked />
     </div>
   );
 };

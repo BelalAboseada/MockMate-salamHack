@@ -41,9 +41,9 @@ const SignUp = () => {
   };
   return (
     <div className={styles.signUp}>
-      {/* {loading ? (
+      {loading ? (
         <Loader />
-      ) : ( */}
+      ) : (
       <div className={styles.signUp__container}>
         {/* Left Section */}
         <div className={styles.signUp__left}>
@@ -154,7 +154,7 @@ const SignUp = () => {
           </form>
         </div>
       </div>
-      {/* )} */}
+       )} 
     </div>
   );
 };

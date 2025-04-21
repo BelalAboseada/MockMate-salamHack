@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 const Feedback = () => {
   const location = useLocation();
   const { feedback } = location.state;
-  console.log(location.state);
+ 
 
   return (
     <div className="flex justify-center items-center p-1 md:p-6">

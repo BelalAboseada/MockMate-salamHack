@@ -78,6 +78,8 @@ button {
 option {
   cursor: pointer;
 }
+
+
 image {
   width: 100%;
   height: 100%;
@@ -98,6 +100,16 @@ input {
   letter-spacing: -0.30000001192092896px;
   text-align: left;
 }
+input:invalid:not(:placeholder-shown),
+select:invalid:not(::selection),
+textarea:invalid:not(:placeholder-shown){
+  border-color: var(--err-color);
+}
+input:valid,
+select:valid,
+textarea:valid{
+  border-color: var(--primary-color-600);
+}
 label {
   font-family: "jost", sans-serif;
   font-size: 24px;
@@ -105,4 +117,8 @@ label {
   line-height: 24px;
   letter-spacing: -0.30000001192092896px;
   text-align: left;
+}
+
+.required_star{
+  color: var(--err-color);
 }
