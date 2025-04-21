@@ -8,7 +8,7 @@ const Layout = () => {
 
   const options = {
     position: "top-center",
-    autoClose: 500,
+    autoClose: 1000,
     hideProgressBar: true,
     closeOnClick: false,
     pauseOnHover: true,

@@ -33,14 +33,13 @@ const Interview = () => {
       number,
       answer: answer || "Not answered yet",
     }));
-  
 
     try {
       setLoading(true);
       const res = await interviewService.submitInterview(interviewId, {
         answers: formattedAnswers,
       });
-    
+
       setLoading(false);
       navigate("/interview/Feedback", {
         state: { feedback: res.data.interview },
@@ -94,11 +93,12 @@ const Interview = () => {
       ) : (
         <div className="w-full md:max-w-5xl bg-white rounded-lg p-3 md:p-6">
           <div
-            className={`absolute top-8 right-8 text-sm md:text-base bg-gray-100 px-4 py-2 rounded-md shadow-md ${
+            className={`absolute top-20 right-8 text-sm md:text-base bg-gray-100 px-4 py-2 rounded-full shadow-md   ${
               timeLeft > 10 * 60 ? "text-success" : "text-red-600"
             }  font-semibold z-10`}
+            id="time_left"
           >
-            ⏱ Time Left: {formatTime(timeLeft)}
+            ⏱ {formatTime(timeLeft)}
           </div>
           {/* Navigation Buttons */}
           <div className="flex justify-between items-center mb-4">
