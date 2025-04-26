@@ -1,13 +1,13 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import React, { useCallback, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 import { AiOutlineAudio } from "react-icons/ai";
 import WarningPopup from "../../../components/UI/popup/WarningPopup";
-import interviewService from "../../../services/InterviewSerice";
+import interviewService from "../../../services/interviewService";
 import Loader from "../../../components/Loader/Loader";
 
 const Interview = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const { interviewId, interviewQA } = location.state;
@@ -91,12 +91,43 @@ const Interview = () => {
       {Loading ? (
         <Loader />
       ) : (
-        <div className="w-full md:max-w-5xl bg-white rounded-lg p-3 md:p-6">
+        <div 
+          className="w-full md:max-w-5xl bg-white rounded-lg p-3 md:p-6 relative"
+          onDragOver={(e) => {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+          }}
+          onDrop={(e) => {
+            e.preventDefault();
+            const timeLeftElement = document.getElementById('time_left');
+            if (timeLeftElement) {
+              const rect = e.currentTarget.getBoundingClientRect();
+              const x = e.clientX - rect.left;
+              const y = e.clientY - rect.top;
+              
+              // Add smooth transition
+              timeLeftElement.style.transition = 'all 0.3s ease';
+              timeLeftElement.style.position = 'absolute';
+              timeLeftElement.style.left = `${x}px`;
+              timeLeftElement.style.top = `${y}px`;
+              
+              // Remove transition after positioning
+              setTimeout(() => {
+                timeLeftElement.style.transition = '';
+              }, 300);
+            }
+          }}
+        >
           <div
-            className={`absolute top-20 right-8 text-sm md:text-base bg-gray-100 px-4 py-2 rounded-full shadow-md   ${
+            className={`absolute bottom-60 md:top-20 right-8 text-sm md:text-base bg-gray-100 px-4 py-2 rounded-full shadow-md w-24 ${
               timeLeft > 10 * 60 ? "text-success" : "text-red-600"
-            }  font-semibold z-10`}
+            } font-semibold z-10 h-min cursor-grab transition-transform duration-300 hover:scale-105`}
             id="time_left"
+            draggable="true"
+            onDragStart={(e) => {
+              e.dataTransfer.setData("text/plain", "time_left");
+              e.dataTransfer.effectAllowed = 'move';
+            }}
           >
             ⏱ {formatTime(timeLeft)}
           </div>
@@ -169,14 +200,6 @@ const Interview = () => {
               cols="50"
               onChange={handleInputChange}
             />
-
-            {/* Voice Input Button
-          <div className="flex flex-col items-center mt-4">
-            <span className="text-gray-500 mb-2">Or</span>
-            <button className="p-3 bg-gray-200 rounded-full">
-              <AiOutlineAudio size={24} className="text-gray-600" />
-            </button>
-          </div> */}
           </div>
 
           {/* Next Button */}

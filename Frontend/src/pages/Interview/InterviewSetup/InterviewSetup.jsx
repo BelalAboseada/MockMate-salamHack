@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useState, useCallback, useMemo } from "react";
 import styles from "./style.module.scss";
 import { Link } from "react-router-dom";
-import interviewService from "../../../services/InterviewSerice";
+import interviewService from "../../../services/interviewService";
 import { toast } from "react-toastify";
 import Loader from "../../../components/Loader/Loader";
 
@@ -45,7 +45,6 @@ const InterviewSetup = () => {
           degree,
           note,
         });
-    
 
         if (response.status === 202) {
           toast.success("Interview setup successful!");
